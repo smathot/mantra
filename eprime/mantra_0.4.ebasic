@@ -1,0 +1,312 @@
+' *******************************************
+' **** START OF MANTRA E-PRIME INTERFACE ****
+' *******************************************
+'
+' MANTRA E-PRIME INTERFACE 0.4-pre1
+' Sebastiaan Mathôt (2010)
+' 
+' LICENSE
+'
+' Mantra is free software: you can redistribute it and/ or modify
+' it under the terms of the GNU General Public License as published by
+' the Free Software Foundation, either version 3 of the License, or
+' (at your option) any later version.
+'
+' Mantra is distributed in the hope that it will be useful,
+' but WITHOUT ANY WARRANTY; without even the implied warranty of
+' MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+' GNU General Public License for more details.
+'
+' You should have received a copy of the GNU General Public License
+' along with Mantra. If not, see <http://www.gnu.org/licenses/>
+'
+' DOCUMENTATION
+'
+' The Mantra E-prime interface can be used with E-prime version
+' 1.2.1.763 or later. This code should be copied in its entirety
+' into the User Scripts section of your E-prime program. You can
+' access the User Scripts using View -> Script and selecting the
+' User tab.
+' 
+' LIST OF VARIABLES
+'
+' The MSample(), MSMov() and MEMov() subs use these variables to store
+' the coordinates that are received from the Mantra server.
+'
+' Dim MX as Integer ' X coordinate
+' Dim MY as Integer ' Y coordinate
+' Dim MZ as Integer ' Z (depth) coordinate
+' Dim MMov as Integer ' 1 if the object is moving, 0 if not
+' 
+' LIST OF SUBS AND FUNCTIONS
+'
+' Function MConnect(Host as String, Port as Long) as Boolean
+' Description	Established a connection to the Mantra server.
+' Host			Contains the hostname (typically an IP adress) of
+' 				the Mantra server.
+' Port			Contains the Port on which the Mantra server is
+'				listening (default = 40007).
+' Returns		True on success, False on failure to connect
+
+' Sub MClose()
+' Description	Closes a connection to the Mantra server.
+' 
+' Sub MSample(Nr as Integer)
+' Description	Retrieves the coordinates and movement status of
+'				the most recent Sample. This data is stored in the
+'				MX, MY, MZ and MMov variables
+' Nr			The Nr of the object, the first object being 0.
+'
+' Sub MNBSample(Nr as Integer)
+' Description	Retrieves the coordinates and movement status of
+'				the most recent Sample. This data is stored in the
+'				MX, MY, MZ and MMov variables. The difference
+'				with the regular MSample() is that this function
+'				returns right away with the most recent sample,
+'				rather than wait for a new sample.
+' Nr			The Nr of the object, the first object being 0.
+'
+' Sub MSMov(Nr as Integer)
+' Description	Waits until a movement is initiated and stores the
+'				coordinates of the Movement start in MX, MY and MZ.
+' Nr			The Nr of the object, the first object being 0.
+'
+' Sub MEMov(Nr as Integer)
+' Description	Waits until a movement has ended and stores the
+'				coordinates of the Movement end in MX, MY and MZ.
+' Nr			The Nr of the object, the first object being 0.
+'
+' Sub MStop()
+' Description	Tells the Mantra server to stop tracking.
+'
+' Sub MFile(Fname as String)
+' Description	Tells the Mantra server to open a new logfile.
+'				All data will be logged to this file.
+' Fname			The name of the logfile (on the server).
+'
+' Sub MLog(LogMsg as String)
+' Description	Logs a message to the logfile on the server.
+' LogMsg		The message to be logged.
+'
+' Sub MCpt(Nr as Integer, InX as Integer, InY as Integer, InZ as Integer,
+'				OutX as Integer, OutY as Integer, OutZ as Integer)
+' Description	Adds a data point for calibration. The actual
+'				calibration is performed using the MCal()
+'				Sub
+' Nr			The Nr of the object, the first object being 0.
+' InX			The raw X coordinate, as returned by the camera
+' InY			The raw Y coordinate, as returned by the camera
+' InZ			The raw X coordinate, as returned by the camera
+' OutX			The calibrated X coordinate.
+' OutY			The calibrated Y coordinate.
+' OutZ			The calibrated Z coordinate.
+'
+' Sub MCal(Nr as Integer)
+' Description	Performs a calibration, provided that at least two
+'				data points are available. Data points can be added
+'				using the MCpt() Sub.
+' Nr			The Nr of the object, the first object being 0.
+'
+' Sub MUCal(Nr as Integer)
+' Description	Tells the server to forget calibration and fall back
+'				to raw coordinates as returned by the camera.
+' Nr			The Nr of the object, the first object being 0.
+'
+' END OF DOCUMENTATION, START OF CODE
+'
+' These global variables hold the result of a sample.
+Dim MX as Integer ' X coordinate
+Dim MY as Integer ' Y coordinate
+Dim MZ as Integer ' Z (depth) coordinate
+Dim MMov as Integer ' 1 if the object is moving, 0 if not
+
+' This socket is used to connect to the Mantra Server.
+Dim MSocket as SocketDevice
+
+Sub MSend(Cmd as String)
+
+	' Sends a single command to the mantra server.
+
+	Debug.print "SEND: " + Cmd
+
+	MSocket.WriteString Cmd + Chr$(10)
+
+End Sub
+
+Function MSendRcv(Cmd as String) as String
+
+	' Sends a single command to the mantra server
+	' and returns a single reply.
+
+	Dim Rcv as String
+	Dim Data as String
+	Dim nRead as Long
+
+	Debug.print "SEND: " + Cmd
+
+	MSocket.WriteString Cmd + Chr$(10)
+
+	Data = ""
+	Do
+		nRead = MSocket.ReadString(Rcv)
+		If nRead > 0 Then
+			Data = Data + Rcv
+		End If
+	Loop While nRead = 0 or Right(Rcv, 1) <> Chr$(10)
+
+	MSendRcv = Left(Data, len(Data) - 1)
+
+End Function
+
+Function MConnect(Host as String, Port as Long) as Boolean
+
+	' Opens a connection to a mantra server.
+
+	Dim MSocketInfo as SocketDeviceInfo
+	MSocketInfo.Server = Host
+	MSocketInfo.Port = Port
+	MSocketInfo.SocketType = ebSocketTypeTcp
+	MSocketInfo.ByteOrdering = ebByteOrderingLittleEndian
+
+	Set MSocket = New SocketDevice
+	MSocket.Name = "MANTRA"
+	MSocket.Open MSocketInfo
+	
+	MConnect = MSendRcv("HI") = "HI"
+
+End Function
+
+Sub MClose()
+
+	' Closes the connection to the mantra server.
+
+	MSend "BYE"
+
+	MSocket.FlushInputBuffer
+	MSocket.FlushOutputBuffer
+	Sleep 500
+	MSocket.Close
+	Set MSocket = Nothing
+
+End Sub
+
+Sub MSample(Nr as Integer)
+
+	' Retrieves sample coordinates and
+	' movement status.
+
+	Dim s as String
+	s = MSendRcv("SAMP" + Str(Nr))
+
+	MX = CInt(Item$(s, 2, 2, " "))
+	MY = CInt(Item$(s, 3, 3, " "))
+	MZ = CInt(Item$(s, 4, 4, " "))
+	MMov = CInt(Item$(s, 1, 1, " "))
+
+End Sub
+
+Sub MNBSample(Nr as Integer)
+
+	' Retrieves sample coordinates and
+	' movement status.
+
+	Dim s as String
+	s = MSendRcv("NBSAMP" + Str(Nr))
+
+	MX = CInt(Item$(s, 2, 2, " "))
+	MY = CInt(Item$(s, 3, 3, " "))
+	MZ = CInt(Item$(s, 4, 4, " "))
+	MMov = CInt(Item$(s, 1, 1, " "))
+
+End Sub
+
+Sub MSMov(Nr as Integer)
+
+	' Holds until a movement is initiated
+	' and retrieves the movement start
+	' coordinates.
+
+	Dim s as String
+	s = MSendRcv("SMOV" + Str(Nr))
+
+	MX = CInt(Item$(s, 1, 1, " "))
+	MY = CInt(Item$(s, 2, 2, " "))
+	MZ = CInt(Item$(s, 3, 3, " "))
+
+End Sub
+
+Sub MEMov(Nr as Integer)
+
+
+	' Holds until a movement is finished
+	' and retrieves the movement end
+	' coordinates.
+
+	Dim s as String
+	s = MSendRcv("EMOV" + Str(Nr))
+
+	MX = CInt(Item$(s, 1, 1, " "))
+	MY = CInt(Item$(s, 2, 2, " "))
+	MZ = CInt(Item$(s, 3, 3, " "))
+
+End Sub
+
+Sub MStop()
+
+	' Tells the server to stop tracking.
+
+	MSend "STOP"
+
+End Sub
+
+Sub MFile(Fname as String)
+
+	' Tells the server to write data to the
+	' specified file.
+
+	MSend "FILE " + Fname
+
+End Sub
+
+Sub MLog(LogMsg as String)
+
+	' Writes a message to the server log.
+
+	MSend "LOG " + LogMsg
+
+End Sub
+
+Sub MCpt(Nr as Integer, InX as Integer, InY as Integer, InZ as Integer, OutX as Integer, OutY as Integer, OutZ as Integer)
+
+	' Adds a calibration point for the specified object (Nr).
+	' The In coordinates are the (raw) coordinates as returned by the webcam.
+	' The Out coordinates are the actual (calibrated) coordinates.
+
+	MSend "CPT" + Str(Nr) + Str(InX) + Str(InY) + Str(InZ) + Str(OutX) + Str(OutY) + Str(OutZ)
+
+End Sub
+
+Sub MCal(Nr as Integer)
+
+	' Tells the server to perform a calibration for the
+	' specified object. In order for a calibration to be
+	' successful, you need to add sufficient data points
+	' using MCpt().
+
+	MSend "CAL" + Str(Nr)
+
+End Sub
+
+Sub MUCal(Nr as Integer)
+
+	' Tells the server to forget the calibration for the
+	' specified object, thus falling back to the raw
+	' coordinates as returned by the camera.
+
+	MSend "UCAL" + Str(Nr)
+
+End Sub
+
+' *****************************************
+' **** END OF MANTRA E-PRIME INTERFACE ****
+' *****************************************

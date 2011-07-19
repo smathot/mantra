@@ -1,0 +1,16 @@
+<RCC>
+  <qresource prefix="icons" >
+    <file>icons/save_16.png</file>
+    <file>icons/webcam_16.png</file>
+    <file>icons/clear_16.png</file>
+    <file>icons/pause_16.png</file>
+    <file>icons/stop_16.png</file>
+    <file>icons/info.png</file>
+    <file>icons/webcam_32.png</file>
+    <file>icons/browse_16.png</file>
+    <file>icons/record.png</file>
+    <file>icons/add_16.png</file>
+    <file>icons/pause.png</file>
+    <file>icons/quit.png</file>
+  </qresource>
+</RCC>

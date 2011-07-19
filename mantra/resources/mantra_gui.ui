@@ -1,0 +1,875 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>674</width>
+    <height>597</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MANTRA 0.3</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="mantra.qrc">
+    <normaloff>:/icons/icons/webcam_16.png</normaloff>:/icons/icons/webcam_16.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QWidget" name="widget" native="true">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="title">
+         <property name="font">
+          <font>
+           <pointsize>14</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string>color:#3465a4;</string>
+         </property>
+         <property name="text">
+          <string>MANTRA [version]</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_8">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap resource="mantra.qrc">:/icons/icons/webcam_32.png</pixmap>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QFrame" name="frame_6">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>300</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string>background-color: #2e3436;
+color: #eeeeec;</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <property name="margin">
+        <number>4</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="label_9">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap resource="mantra.qrc">:/icons/icons/info.png</pixmap>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_10">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Status:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_status">
+         <property name="text">
+          <string>idle</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QFrame" name="frame_2">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <property name="spacing">
+        <number>6</number>
+       </property>
+       <property name="margin">
+        <number>4</number>
+       </property>
+       <item>
+        <widget class="QGroupBox" name="groupBox">
+         <property name="title">
+          <string>Tracking and recording</string>
+         </property>
+         <property name="flat">
+          <bool>false</bool>
+         </property>
+         <property name="checkable">
+          <bool>false</bool>
+         </property>
+         <layout class="QGridLayout" name="gridLayout">
+          <property name="horizontalSpacing">
+           <number>6</number>
+          </property>
+          <property name="verticalSpacing">
+           <number>2</number>
+          </property>
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="edit_file">
+            <property name="text">
+             <string>recording.tsv</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>Data file</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <widget class="QPushButton" name="button_browse">
+            <property name="text">
+             <string>Browse</string>
+            </property>
+            <property name="icon">
+             <iconset resource="mantra.qrc">
+              <normaloff>:/icons/icons/browse_16.png</normaloff>:/icons/icons/browse_16.png</iconset>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_11">
+            <property name="text">
+             <string>Camera device</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="label_15">
+            <property name="text">
+             <string>Resolution</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QLineEdit" name="edit_resolution">
+            <property name="frame">
+             <bool>true</bool>
+            </property>
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0">
+           <widget class="QLabel" name="label_16">
+            <property name="text">
+             <string>Framerate</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="1" colspan="2">
+           <widget class="QSpinBox" name="spinbox_framerate"/>
+          </item>
+          <item row="5" column="0">
+           <widget class="QLabel" name="label_17">
+            <property name="text">
+             <string>Network protocol</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="1" colspan="2">
+           <widget class="QComboBox" name="combobox_comm_protocol">
+            <item>
+             <property name="text">
+              <string>TCP (For E-prime)</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>UDP (For Python)</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="6" column="0" colspan="3">
+           <widget class="QCheckBox" name="checkbox_log_samples">
+            <property name="text">
+             <string>Log samples</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="2">
+           <widget class="QPushButton" name="button_change_resolution">
+            <property name="text">
+             <string>Change</string>
+            </property>
+            <property name="icon">
+             <iconset resource="mantra.qrc">
+              <normaloff>:/icons/icons/webcam_16.png</normaloff>:/icons/icons/webcam_16.png</iconset>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="2">
+           <widget class="QPushButton" name="button_change_camera">
+            <property name="text">
+             <string>Change</string>
+            </property>
+            <property name="icon">
+             <iconset resource="mantra.qrc">
+              <normaloff>:/icons/icons/webcam_16.png</normaloff>:/icons/icons/webcam_16.png</iconset>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QLineEdit" name="edit_camera_dev">
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QFrame" name="frame_5">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="styleSheet">
+       <string/>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_5">
+       <property name="margin">
+        <number>4</number>
+       </property>
+       <item row="0" column="0">
+        <widget class="QGroupBox" name="groupBox_5">
+         <property name="title">
+          <string>Objects</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_6">
+          <property name="verticalSpacing">
+           <number>2</number>
+          </property>
+          <item row="0" column="0" colspan="2">
+           <widget class="QLabel" name="label_objects">
+            <property name="font">
+             <font>
+              <family>Droid Sans Mono</family>
+             </font>
+            </property>
+            <property name="text">
+             <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Droid Sans'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;No objects have been defined&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="textFormat">
+             <enum>Qt::RichText</enum>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>674</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionSave_profile"/>
+    <addaction name="actionOpen_profile"/>
+    <addaction name="separator"/>
+    <addaction name="actionQuit"/>
+   </widget>
+   <widget class="QMenu" name="menuTracking">
+    <property name="title">
+     <string>Tracking</string>
+    </property>
+    <addaction name="actionStart"/>
+    <addaction name="actionStop"/>
+    <addaction name="actionPause"/>
+   </widget>
+   <widget class="QMenu" name="menuObjects">
+    <property name="title">
+     <string>Objects</string>
+    </property>
+    <addaction name="actionAdd_object"/>
+    <addaction name="actionClear_objects"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionAbout"/>
+   </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>Options</string>
+    </property>
+    <addaction name="actionShow_camera_options"/>
+    <addaction name="actionShow_advanced_options"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuView"/>
+   <addaction name="menuTracking"/>
+   <addaction name="menuObjects"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionStart"/>
+   <addaction name="actionStop"/>
+   <addaction name="actionPause"/>
+   <addaction name="separator"/>
+   <addaction name="actionAdd_object"/>
+   <addaction name="actionClear_objects"/>
+  </widget>
+  <widget class="QDockWidget" name="dock_camera_options">
+   <property name="minimumSize">
+    <size>
+     <width>350</width>
+     <height>200</height>
+    </size>
+   </property>
+   <property name="features">
+    <set>QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable</set>
+   </property>
+   <property name="windowTitle">
+    <string>Camera options</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_2">
+    <layout class="QVBoxLayout" name="layout_dock_camera_options">
+     <property name="spacing">
+      <number>0</number>
+     </property>
+     <property name="margin">
+      <number>4</number>
+     </property>
+     <item>
+      <widget class="QScrollArea" name="scrollarea_camera_options">
+       <property name="verticalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOn</enum>
+       </property>
+       <property name="widgetResizable">
+        <bool>true</bool>
+       </property>
+       <widget class="QWidget" name="scrollarea_camera_contents">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>327</width>
+          <height>204</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="layout_camera_options">
+         <property name="spacing">
+          <number>0</number>
+         </property>
+         <property name="margin">
+          <number>0</number>
+         </property>
+        </layout>
+       </widget>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QDockWidget" name="dock_advanced_options">
+   <property name="minimumSize">
+    <size>
+     <width>350</width>
+     <height>241</height>
+    </size>
+   </property>
+   <property name="features">
+    <set>QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable</set>
+   </property>
+   <property name="windowTitle">
+    <string>Advanced options</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents">
+    <layout class="QVBoxLayout" name="verticalLayout_5">
+     <property name="spacing">
+      <number>0</number>
+     </property>
+     <property name="margin">
+      <number>4</number>
+     </property>
+     <item>
+      <widget class="QToolBox" name="toolbox_advanced_options">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="font">
+        <font>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="currentIndex">
+        <number>1</number>
+       </property>
+       <widget class="QWidget" name="page_2">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>342</width>
+          <height>138</height>
+         </rect>
+        </property>
+        <attribute name="label">
+         <string>Velocity and movement</string>
+        </attribute>
+        <layout class="QGridLayout" name="gridLayout_3">
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_6">
+           <property name="text">
+            <string>Movement start velocity threshold</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QSpinBox" name="spinbox_smov_threshold">
+           <property name="maximum">
+            <number>10000</number>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_7">
+           <property name="text">
+            <string>Movement end velocity threshold</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QSpinBox" name="spinbox_emov_threshold">
+           <property name="maximum">
+            <number>10000</number>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0" colspan="2">
+          <widget class="QCheckBox" name="checkbox_v3d">
+           <property name="text">
+            <string>Use Z-coordinate (depth) to estimate velocity</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QWidget" name="widget_2" native="true"/>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="page_3">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>342</width>
+          <height>138</height>
+         </rect>
+        </property>
+        <attribute name="label">
+         <string>Monitor</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="verticalLayout_9">
+         <item>
+          <widget class="QCheckBox" name="checkbox_monitor_tracking">
+           <property name="text">
+            <string>Monitor tracking</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="checkbox_monitor_webcam">
+           <property name="text">
+            <string>Show webcam output</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QWidget" name="widget_3" native="true"/>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="page_5">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>342</width>
+          <height>138</height>
+         </rect>
+        </property>
+        <attribute name="label">
+         <string>Networking</string>
+        </attribute>
+        <layout class="QGridLayout" name="gridLayout_4">
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_12">
+           <property name="text">
+            <string>Listening to host (empty = all)</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QLabel" name="label_13">
+           <property name="text">
+            <string>Listening on port</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QLineEdit" name="edit_host"/>
+         </item>
+         <item row="3" column="1">
+          <widget class="QSpinBox" name="spinbox_port">
+           <property name="maximum">
+            <number>100000</number>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="0">
+          <widget class="QWidget" name="widget_4" native="true"/>
+         </item>
+         <item row="0" column="0" colspan="2">
+          <widget class="QLabel" name="label_14">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>Note: changing the network settings only has an effect before tracking is started for the first time.</string>
+           </property>
+           <property name="textFormat">
+            <enum>Qt::PlainText</enum>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+           </property>
+           <property name="wordWrap">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="page_4">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>358</width>
+          <height>147</height>
+         </rect>
+        </property>
+        <attribute name="label">
+         <string>Other options</string>
+        </attribute>
+        <layout class="QGridLayout" name="gridLayout_2">
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>Color match mode</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QComboBox" name="combobox_match_mode">
+           <item>
+            <property name="text">
+             <string>Absolute (no color constancy)</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Relative (some color constancy)</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_3">
+           <property name="text">
+            <string>Depth estimation mode</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QComboBox" name="combobox_size_mode">
+           <item>
+            <property name="text">
+             <string>Surface (count pixels)</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Width and height</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="label_5">
+           <property name="text">
+            <string>Minimum pixelcount</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QSpinBox" name="spinbox_min_z">
+           <property name="maximum">
+            <number>10000</number>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0" colspan="2">
+          <widget class="QCheckBox" name="checkbox_control_mouse">
+           <property name="text">
+            <string>Use tracking to control mouse cursor</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="0">
+          <widget class="QWidget" name="widget_5" native="true"/>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <action name="actionQuit">
+   <property name="icon">
+    <iconset resource="mantra.qrc">
+     <normaloff>:/icons/icons/quit.png</normaloff>:/icons/icons/quit.png</iconset>
+   </property>
+   <property name="text">
+    <string>Quit</string>
+   </property>
+  </action>
+  <action name="actionStart">
+   <property name="icon">
+    <iconset resource="mantra.qrc">
+     <normaloff>:/icons/icons/record.png</normaloff>:/icons/icons/record.png</iconset>
+   </property>
+   <property name="text">
+    <string>Start</string>
+   </property>
+  </action>
+  <action name="actionStop">
+   <property name="icon">
+    <iconset resource="mantra.qrc">
+     <normaloff>:/icons/icons/stop_16.png</normaloff>:/icons/icons/stop_16.png</iconset>
+   </property>
+   <property name="text">
+    <string>Stop</string>
+   </property>
+  </action>
+  <action name="actionPause">
+   <property name="icon">
+    <iconset resource="mantra.qrc">
+     <normaloff>:/icons/icons/pause_16.png</normaloff>:/icons/icons/pause_16.png</iconset>
+   </property>
+   <property name="text">
+    <string>Pause</string>
+   </property>
+  </action>
+  <action name="actionAdd_object">
+   <property name="icon">
+    <iconset resource="mantra.qrc">
+     <normaloff>:/icons/icons/add_16.png</normaloff>:/icons/icons/add_16.png</iconset>
+   </property>
+   <property name="text">
+    <string>Add object</string>
+   </property>
+  </action>
+  <action name="actionClear_objects">
+   <property name="icon">
+    <iconset resource="mantra.qrc">
+     <normaloff>:/icons/icons/clear_16.png</normaloff>:/icons/icons/clear_16.png</iconset>
+   </property>
+   <property name="text">
+    <string>Clear objects</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="icon">
+    <iconset resource="mantra.qrc">
+     <normaloff>:/icons/icons/info.png</normaloff>:/icons/icons/info.png</iconset>
+   </property>
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
+  <action name="actionShow_advanced_options">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show advanced options</string>
+   </property>
+  </action>
+  <action name="actionShow_camera_options">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show camera options</string>
+   </property>
+  </action>
+  <action name="actionSave_profile">
+   <property name="icon">
+    <iconset resource="mantra.qrc">
+     <normaloff>:/icons/icons/save_16.png</normaloff>:/icons/icons/save_16.png</iconset>
+   </property>
+   <property name="text">
+    <string>Save profile</string>
+   </property>
+  </action>
+  <action name="actionOpen_profile">
+   <property name="icon">
+    <iconset resource="mantra.qrc">
+     <normaloff>:/icons/icons/browse_16.png</normaloff>:/icons/icons/browse_16.png</iconset>
+   </property>
+   <property name="text">
+    <string>Open profile</string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="mantra.qrc"/>
+ </resources>
+ <connections/>
+</ui>
