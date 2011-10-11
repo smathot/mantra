@@ -23,6 +23,7 @@ import math
 import socket
 import thread
 import os
+import sys
 import pickle
 from PIL import Image
 from PIL import ImageDraw
@@ -31,8 +32,8 @@ from mantra import camera, v4l2_cid
 class etracker:
 
 	"""
-	Etracker handles much of the actual tracking.
-	Some of the tracking is also handled by camera, which is written in C and is therefore faster.
+	Etracker handles much of the actual tracking. Some of the tracking is
+	handled by camera, which is written in C and is therefore faster.
 	"""	
  
 	def __init__(self, camera_dev, resolution, mantra):
@@ -55,7 +56,7 @@ class etracker:
 		self.mantra = mantra
 		
 		if resolution == None:
-			resolution = 640, 480
+			resolution = 320, 240
 		
 		camera.camera_init(self.camera_dev, resolution[0], resolution[1])
 
@@ -96,6 +97,7 @@ class etracker:
 		self.sample_nr = 0
 		self.last_comm_sample = -1
 		self.target_t_res = 40
+		self.debug = "--debug" in sys.argv
 
 		self.objects = []
 		
@@ -470,6 +472,8 @@ class etracker:
 		"""
 
 		screen, font = self.create_screen("Define Object")
+		if self.debug:
+			print "etracker.define_object(): screen created"
 		
 		target_color = None
 		fuzziness = 50
@@ -494,15 +498,14 @@ class etracker:
 			screen.blit(text, (10, 70))
 			text = font.render("Match mode = %d <'m'>" % camera.cvar.match_mode, False, (255, 255, 255))
 			screen.blit(text, (10, 90))
-
+			
 			# Capture the image
 			camera.camera_capture()
 			
 			# Make the matching part of the webcam image green
 			if target_color != None:
 				camera.highlight_color(target_color[0], target_color[1], target_color[2], fuzziness)
-
-			# Display the image and the text				
+			# Display the image and the text
 			im = pygame.image.frombuffer(camera.camera_to_string(), self.resolution, "RGB")
 			screen.blit(im, (0, self.display_margin))
 									

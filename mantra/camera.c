@@ -67,7 +67,7 @@ unsigned int r, g, b;
 void camera_open(char *device)
 {
 	extern int camera_fd;
-	
+
 	camera_fd = v4l2_open(device, O_RDWR);
 }
 
@@ -194,8 +194,7 @@ PyObject *camera_to_string(void)
 	extern unsigned char *frame;
 	extern struct v4l2_format format;
 	
-	PyObject *result = PyString_FromStringAndSize(
-      frame, format.fmt.pix.sizeimage);	
+	PyObject *result = PyString_FromStringAndSize(frame, format.fmt.pix.sizeimage);	
 	return result;
 }
 
