@@ -32,46 +32,34 @@ then
 	exit
 fi
 
-
-if [ $# == 1 ] && [ $1 == "with_gui" ]
-then
-	echo "Compiling Qt Gui..."
-	pyuic4 mantra/resources/mantra_gui.ui > mantra/mantra_gui.py
-	pyuic4 mantra/resources/about_gui.ui > mantra/about_gui.py
-	pyrcc4 mantra/resources/mantra.qrc > mantra/mantra_rc.py
-fi
+echo "Compiling Qt Gui..."
+pyuic4 mantra/resources/mantra_gui.ui > mantra/mantra_gui.py
+pyuic4 mantra/resources/about_gui.ui > mantra/about_gui.py
+pyrcc4 mantra/resources/mantra.qrc > mantra/mantra_rc.py
 
 echo "Running SWIG..."
-
 swig -python ./mantra/camera.i
-
 if [ $? == 1 ]; then
 	echo "Error while running SWIG"
 	exit
 fi
 
 echo "Compiling camera..."
-
 gcc -O2 -fPIC -c ./mantra/camera.c -I$PYPATH -L/usr/lib -lv4l2 -o ./mantra/camera.o
-
 if [ $? == 1 ]; then
 	echo "Error compiling camera.c"
 	exit
 fi
 
 echo "Compiling camera_wrap..."
-
 gcc -O2 -fPIC -c ./mantra/camera_wrap.c -I$PYPATH -I/usr/include/opencv -L/usr/lib -lv4l2 -o ./mantra/camera_wrap.o
-
 if [ $? == 1 ]; then
 	echo "Error compiling camera_wrap.c"
 	exit
 fi
 
 echo "Linking.."
-
 gcc -shared ./mantra/camera.o ./mantra/camera_wrap.o -o ./mantra/_camera.so -I/usr/include/opencv -L/usr/lib -lv4l2
-
 if [ $? == 1 ]; then
 	echo "Error linking"
 	exit
@@ -79,10 +67,9 @@ fi
 
 echo "Compilation complete!"
 echo
-echo "Please Enter your password to complete installation of Mantra:"
-echo
 python setup.py install
 if [ $? == 1 ]; then
+	echo 
 	echo "Error installing"
 	echo "Did you run this script as root? (you should)"
 	exit
