@@ -1,35 +1,12 @@
-MANTRA 0.4
+MANTRA 0.41
+===========
 
-Copyright Sebastiaan Mathôt (2010). You should have received a copy of the GNU General Public License along with this file. If not, see <http://www.gnu.org/licenses/>.
+CREDITS
+=======
+Copyright Sebastiaan Mathot (2010-2011)
+<http://www.cogsci.nl/smathot>
 
-This README is part of the Mantra source code. Included with the source code is an installation script which compiles all necessary C-code and performs the installation. For more information on Mantra see: <http://www.cogsci.nl/mantra>.
-
-REQUIREMENTS
-
-You need to install the following libraries. The exact package names may vary slightly depending on your distribution. 
-
-python-pygame
-python-imaging
-python-qt4
-python-rpy (required for calibration only)
-python-dev
-build-essential (or whatever packages provide the basic development tools, such as gcc)
-libv4l-dev
-swig
-
-INSTALLATION
-
-Open a terminal in the folder containing the file "install" and start the installation (requires root access) by typing:
-su -c ./install
-In distributions which support "sudo" (such as Ubuntu) you have to run the following command instead:
-sudo ./install 
-
-RUNNING THE PROGRAM
-
-You can start the Mantra by executing the following command:
-
-qtmantra
-
-Or by selecting Mantra from the applications menu (Applications > Accessories > Mantra).
-
-
+README
+======
+For more information, including installation instructions, visit the website
+<http://www.cogsci.nl/mantra> or read 'doc/mantra-doc.odt'.
