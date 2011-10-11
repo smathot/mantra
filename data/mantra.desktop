@@ -1,0 +1,18 @@
+
+[Desktop Entry]
+Name=Mantra
+Comment=Color-based object tracking
+TryExec=qtmantra
+Exec=qtmantra
+Icon=mantra
+Type=Application
+X-GNOME-DocPath=
+X-GNOME-Bugzilla-Bugzilla=
+X-GNOME-Bugzilla-Product=
+X-GNOME-Bugzilla-Component=
+X-GNOME-Bugzilla-Version=
+Categories=GNOME;GTK;Utility;
+StartupNotify=false
+X-Ubuntu-Gettext-Domain=mantra
+Name[en_US]=Mantra
+
