@@ -32,7 +32,7 @@ class qtmantra(QtGui.QMainWindow):
 	Mantra is the GUI which controls Etracker, which handles the actual tracking
 	"""
 	
-	version = "0.41"
+	version = "0.42"
 	
 	def __init__(self, parent = None):
 	

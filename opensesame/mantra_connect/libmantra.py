@@ -21,29 +21,30 @@ import time
 class libmantra:
 
 	"""
-	Python bindings for communicating with the Mantra server. This
-	requires the Mantra server to be in UDP mode. For more
-	information, see <http://www.cogsci.nl/mantra/>
+	Python bindings for communicating with the Mantra server. This requires the
+	Mantra server to be in UDP mode. For more information, see
+	<http://www.cogsci.nl/mantra/>
 	"""
 	
-	version = 0.4
+	version = 0.42
 
-	def __init__(self, host = "localhost", port = 40007):
+	def __init__(self, host="localhost", port=40007):
 	
 		"""
 		Constructor
 		
 		Keyword arguments:
-		host -- a string containing a name or IP-address of the host running the Mantra server. (default = "localhost")
-		port -- the port at which the Mantra server is listening (default = 40007)		
+		host -- a string containing a name or IP-address of the host running the
+				Mantra server. (default="localhost")
+		port -- the port at which the Mantra server is listening (default=40007)		
 		"""
 	
 		self.comm_addr = host, port		
 		self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-		self.sock.bind( ("", 30007) )			
+		self.sock.bind(self.comm_addr)			
 		self.connected = self.comm("HI", 1) == "HI"
 		
-	def comm(self, cmd, timeout = None):
+	def comm(self, cmd, timeout=None):
 	
 		"""
 		Sends a command string to the Mantra server
@@ -52,7 +53,8 @@ class libmantra:
 		cmd -- the string containing a command
 		
 		Keyword arguments:
-		timeout -- a maximum time, after which a timeout is signaled (default = None)
+		timeout -- a maximum time, after which a timeout is signaled
+				   (default=None)
 		
 		Returns:
 		The response string of the Mantra server or None if a timeout occurred
@@ -80,7 +82,7 @@ class libmantra:
 	
 		self.sock.sendto("FILE %s\n" % fname, self.comm_addr)
 		
-	def add_cal_point(self, webcam_pt, world_pt, o = 0):
+	def add_cal_point(self, webcam_pt, world_pt, o=0):
 	
 		"""		
 		* note: calibration is experimental and usually not required
@@ -88,21 +90,25 @@ class libmantra:
 		Adds a calibration point for an object to the server.		
 		
 		Arguments:
-		webcam_pt -- an (x,y,z) tuple containing the webcam coordinates of a point
-		world_pt -- an (x,y,z) tuple containing the real-word coordinates of a point
+		webcam_pt -- an (x,y,z) tuple containing the webcam coordinates of a
+					 point
+		world_pt -- an (x,y,z) tuple containing the real-word coordinates of a
+					point
 		
 		Keyword arguments:
 		o -- the object nr (default = 0)		
 		"""
 	
-		self.sock.sendto("CPT %d %d %d %d %d %d %d\n" % ( (o, ) + webcam_pt + world_pt), self.comm_addr)
+		self.sock.sendto("CPT %d %d %d %d %d %d %d\n" % ( (o, ) + webcam_pt + \
+			world_pt), self.comm_addr)
 		
-	def calibrate(self, o = 0):
+	def calibrate(self, o=0):
 	
 		"""
 		* note: calibration is experimental and usually not required		
 		
-		Performs a calibration for an object based on previously defined calibration points
+		Performs a calibration for an object based on previously defined
+		calibration points
 		
 		Keyword arguments:
 		o -- the object nr (default = 0)		
@@ -110,7 +116,7 @@ class libmantra:
 	
 		self.sock.sendto("CAL %d\n" % o, self.comm_addr)
 		
-	def uncalibrate(self, o = 0):
+	def uncalibrate(self, o=0):
 	
 		"""
 		* note: calibration is experimental and usually not required		
@@ -123,20 +129,21 @@ class libmantra:
 	
 		self.sock.sendto("UCAL %d\n" % o, self.comm_addr)		
 					
-	def sample(self, o = 0, timeout = None):
+	def sample(self, o=0, timeout=None):
 	
 		"""
-		Returns a sample, containing the coordinates and movement status of an object. This
-		function waits for a new sample and therefore blocks the program until a new sample
-		is available.
+		Returns a sample, containing the coordinates and movement status of an 
+		object. This function waits for a new sample and therefore blocks the
+		program until a new sample is available.
 		
 		Keyword arguments:
-		o -- the object nr (default = 0)
-		timeout -- a maximum time, after which a timeout is signaled (default = None)
+		o -- the object nr (default=0)
+		timeout -- a maximum time, after which a timeout is signaled
+				   (default=None)
 		
 		Returns:
-		A (moving, coordinates) tuple, where moving is 0 (not moving) or 1 (moving) and
-		coordinates is a (x,y,z) tuple.		
+		A (moving, coordinates) tuple, where moving is 0 (not moving) or 1
+		(moving) and coordinates is a (x,y,z) tuple.		
 		"""	
 	
 		res = self.comm("SAMP %d\n" % o, timeout)
@@ -145,20 +152,21 @@ class libmantra:
 		res = res.split(" ")
 		return int(res[0]), (float(res[1]), float(res[2]), float(res[3]))
 		
-	def nb_sample(self, o = 0, timeout = None):
+	def nb_sample(self, o=0, timeout=None):
 	
 		"""
-		Returns a sample, containing the coordinates and movement status of an object. This
-		function returns the latest sample right away and does not block until a new sample
-		has arrived.
+		Returns a sample, containing the coordinates and movement status of an
+		object. This function returns the latest sample right away and does not
+		block until a new sample has arrived.
 		
 		Keyword arguments:
 		o -- the object nr (default = 0)
-		timeout -- a maximum time, after which a timeout is signaled (default = None)
+		timeout -- a maximum time, after which a timeout is signaled
+				   (default=None)
 		
 		Returns:
-		A (moving, coordinates) tuple, where moving is 0 (not moving) or 1 (moving) and
-		coordinates is a (x,y,z) tuple.		
+		A (moving, coordinates) tuple, where moving is 0 (not moving) or 1
+		(moving) and coordinates is a (x,y,z) tuple.		
 		"""		
 	
 		res = self.comm("NBSAMP %d\n" % o, timeout)
@@ -168,14 +176,15 @@ class libmantra:
 		return int(res[0]), (float(res[1]), float(res[2]), float(res[3]))
 		
 					
-	def smov(self, o = 0, timeout = None):	
+	def smov(self, o=0, timeout=None):	
 	
 		"""
 		Waits for the start of a movement.
 		
 		Keyword arguments:
 		o -- the object nr (default = 0)
-		timeout -- a maximum time, after which a timeout is signaled (default = None)		
+		timeout -- a maximum time, after which a timeout is signaled
+				   (default=None)		
 		
 		Returns:
 		A (x,y,z) tuple containing the coordinates of the movement start
@@ -187,24 +196,27 @@ class libmantra:
 		res = res.split(" ")			
 		return float(res[0]), float(res[1]), float(res[2])
 	
-	def emov(self, o = 0, timeout = None):
+	def emov(self, o=0, timeout=None):
 	
 		"""
 		Waits for the end of a movement.
 		
 		Keyword arguments:
 		o -- the object nr (default = 0)
-		timeout -- a maximum time, after which a timeout is signaled (default = None)		
+		timeout -- a maximum time, after which a timeout is signaled
+				   (default=None)		
 		
 		Returns:
-		A (start_coordinates, end_coordinates) tuple, each consisting of an (x,y,z) tuple.
+		A (start_coordinates, end_coordinates) tuple, each consisting of an
+		(x,y,z) tuple.
 		"""
 		
 		res = self.comm("EMOV %d\n" % o, timeout)
 		if res == None:
 			return None
 		res = res.split(" ")			
-		return (float(res[0]), float(res[1]), float(res[2])), (float(res[3]), float(res[4]), float(res[5]))
+		return (float(res[0]), float(res[1]), float(res[2])), (float(res[3]), \
+			float(res[4]), float(res[5]))
 		
 	def log(self, msg):	
 	
