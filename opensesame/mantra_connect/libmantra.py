@@ -41,7 +41,6 @@ class libmantra:
 	
 		self.comm_addr = host, port		
 		self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-		self.sock.bind(self.comm_addr)			
 		self.connected = self.comm("HI", 1) == "HI"
 		
 	def comm(self, cmd, timeout=None):
