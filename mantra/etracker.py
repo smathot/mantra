@@ -215,7 +215,8 @@ class etracker:
 			# Use a specific file for logging
 			if data[0] == "FILE" and len(data) == 2:
 				self.fname = data[1]
-				self.mantra.set_filename(self.fname)
+				if self.mantra != None:
+					self.mantra.set_filename(self.fname)
 				self.start_log()
 				return True
 				
@@ -437,7 +438,7 @@ class etracker:
 			fname_changed = True
 			self.fname = "_" + self.fname
 			print "etracker.start_log(): changing logfile to %s" % self.fname	
-		if fname_changed:
+		if fname_changed and self.mantra != None:
 			self.mantra.set_filename(self.fname)
 		
 		# Open the logfile
@@ -480,7 +481,6 @@ class etracker:
 
 		# Loop until a key is pressed (which is handled in the loop)
 		while True:		
-										
 			# Create a blank screen
 			screen.fill( (0, 0, 0) )
 			
@@ -498,15 +498,15 @@ class etracker:
 			screen.blit(text, (10, 70))
 			text = font.render("Match mode = %d <'m'>" % camera.cvar.match_mode, False, (255, 255, 255))
 			screen.blit(text, (10, 90))
-			
 			# Capture the image
 			camera.camera_capture()
-			
 			# Make the matching part of the webcam image green
 			if target_color != None:
 				camera.highlight_color(target_color[0], target_color[1], target_color[2], fuzziness)
 			# Display the image and the text
-			im = pygame.image.frombuffer(camera.camera_to_string(), self.resolution, "RGB")
+			s = camera.camera_to_string()
+			s += ''
+			im = pygame.image.frombuffer(s, self.resolution, "RGB")
 			screen.blit(im, (0, self.display_margin))
 									
 			# Display the webcam image			
@@ -764,7 +764,8 @@ class etracker:
 						self.pause_tracking = True
 										
 					# If a key is pressed, the options in the UI should be changed accordingly		
-					self.mantra.set_options()
+					if self.mantra != None:
+						self.mantra.set_options()
 
 			# Flush the display
 			if self.monitor_tracking:				
